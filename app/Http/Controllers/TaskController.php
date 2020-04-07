@@ -10,8 +10,8 @@ class TaskController extends Controller
 {
     public function index(){
         
-        // $tasks = Task::all();
-        $tasks = Task::latest()->where('group_id', $group->id)->get();
+        $tasks = Task::all();
+        // $tasks = Task::latest()->where('group_id', $group->id)->get();
 
         return view('task',compact('tasks'));
         // $tasks = Task::all();
