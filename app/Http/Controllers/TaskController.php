@@ -22,47 +22,47 @@ class TaskController extends Controller
     // {
     //     return view('tasks.create');
     // }
-    public function store()
-    {
-        dump(request()->all());
-        // $request->validate([
-        //     'description' => 'required',
-        //     'completed' => 'required',
-        //     'due_date' => 'required',
-        //     'priority' => 'required',
-        //     'flagged' => 'required',
-        // ]);
+    // public function store(Request $request)
+    // {
+      
+    //     $request->validate([
+    //         'description' => 'required',
+    //         'completed' => 'required',
+    //         'due_date' => 'required',
+    //         'priority' => 'required',
+    //         'flagged' => 'required',
+    //     ]);
   
-        // Task::create($request->all());
+    //     Task::create($request->all());
    
-        // return redirect()->route('task')
-        //                 ->with('success','Task created successfully.');
-    }
-    // public function store(){
-    //     $task = new Task();
-    //     $task->description=request('description');
-    //     $task->completed=request('completed');
-    //     $task->due_date=request('due_date');
-    //     $task->priority=request('priority');
-    //     $task->flagged=request('flagged');
-    //     $task->save();
-
-    //     return redirect('/group/{{$group->id}}');
+    //     return redirect()->route('task')
+    //                     ->with('success','Task created successfully.');
     // }
+    public function store(){
+        $task = new Task();
+        $task->description=request('description');
+        $task->completed=request('completed');
+        $task->due_date=request('due_date');
+        $task->priority=request('priority');
+        $task->flagged=request('flagged');
+        $task->save();
+
+        return redirect('/group/{{$group->id}}');
+    }
     public function update(Request $request, Task $task){
         // $task = Task::find();
         // $task->completed = request('completed');
         // $task->save();
         // return redirect('/');
         $request->validate([
-            'description' => 'required',
+            
             'completed' => 'required',
-            'due_date' => 'required',
-            'priority' => 'required',
-            'flagged' => 'required',
+            
         ]);
-  
-        $task->update($request->all());
+       
+        $task->save();
+        // return redirect('/');
+        // $task->update($request->all());
   
         return redirect()->route('task')
                         ->with('success','Task updated successfully');

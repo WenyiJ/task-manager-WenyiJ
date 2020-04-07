@@ -84,20 +84,24 @@
         <div class="card">
             <div class="card-header"><h2>Tasks</h2></div>
             <div class="card-body">
-                
+                @foreach($tasks as $task)
                 <ul class="list-group list-group-flush">
                                             <li class="list-group-item d-flex align-items-center justify-content-between">
-                        <form class="d-flex align-items-baseline" action="/task/13" method="POST">
+                        <form class="d-flex align-items-baseline" action="/task/{{$task->id}}" method="POST">
                             @csrf
                             @method('put')
                             
-                            {{-- <input type="hidden" name="completed" value="{{$task->completed ? 0 :1}}"> --}}
+                            <input type="hidden" name="completed" value="{{$task->completed ? 0 :1}}">
                         <button class="btn
-                           
+                        @if ($task->completed)
+                        btn-success
+                    @else
+                        btn-light
+                    @endif
                         "><i class="fas fa-check"></i></button>
-                        <p>dd</p>
+                        <p>{{$task->description}}</p>
                         </form>
-                        <form action="/task/13" method="post">
+                        <form action="/task/{{$task->id}}" method="post">
                             @csrf
                             @method('delete')                                
                           
@@ -105,7 +109,7 @@
                         </form>
                     </li>
                 </ul>
-           
+           @endforeach
             </div>
         </div>
         <div class="card mt-5">
