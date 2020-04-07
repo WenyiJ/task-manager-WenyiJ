@@ -3,15 +3,15 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
-
+use App\Group;
 use App\Task;
 
 class TaskController extends Controller
 {
     public function index(){
         
-        $tasks = Task::all();
-     
+        // $tasks = Task::all();
+        $tasks = Task::latest()->where('group_id', $group->id)->get();
 
         return view('task',compact('tasks'));
         // $tasks = Task::all();
@@ -82,7 +82,7 @@ class TaskController extends Controller
     public function show(Task $task){
         // $tasks = Task::latest()->where('group_id', $group->id)->get();
             $tasks=Task::all();
-            return view('task',compact('task'));
+            return view('task',compact('tasks'));
         // }
         // $task = Task::find();
         // return view('task',['task'=>$task]);

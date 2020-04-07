@@ -31,13 +31,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/', 'GroupController@index');
     Route::get('/home', 'GroupController@index');
     Route::post('/group', 'GroupController@store');
-    Route::get('/gropu/edit/{id}', 'GroupController@edit');
+    Route::get('/group/edit/{id}', 'GroupController@edit');
     Route::put('/group/{id}', 'GroupController@update');
     Route::delete('/group/{id}', 'GroupController@destroy');
     Route::get('/group/{id}', 'TaskController@index');
     Route::get('/group/edit/{id}', 'GroupController@show');
     Route::post('/group/{id}', 'TaskController@store');
-    Route::get('/group/{id}', 'TaskController@show');
+    Route::get('/group/view/{id}', 'TaskController@show');
     Route::put('/group/{id}',"TaskController@update");
     });
 

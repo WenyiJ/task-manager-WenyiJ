@@ -84,7 +84,7 @@
         <div class="card">
             <div class="card-header"><h2>Tasks</h2></div>
             <div class="card-body">
-                @foreach($tasks as $task)
+                
                 <ul class="list-group list-group-flush">
                                             <li class="list-group-item d-flex align-items-center justify-content-between">
                         <form class="d-flex align-items-baseline" action="/task/{{$task->id}}" method="POST">
@@ -109,7 +109,7 @@
                         </form>
                     </li>
                 </ul>
-           @endforeach
+           
             </div>
         </div>
         <div class="card mt-5">
