@@ -3,12 +3,15 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
-use App\Group;
+
 use App\Task;
+use App\Group;
+
 
 class TaskController extends Controller
 {
     public function index(){
+        $groups = Group::latest()->where('user_id', auth()->id())->get();
         
         $tasks = Task::all();
         // $tasks = Task::latest()->where('group_id', $group->id)->get();
@@ -18,26 +21,7 @@ class TaskController extends Controller
 
         // return view('task',['tasks'=>$tasks]);
     }
-    // public function create()
-    // {
-    //     return view('tasks.create');
-    // }
-    // public function store(Request $request)
-    // {
-      
-    //     $request->validate([
-    //         'description' => 'required',
-    //         'completed' => 'required',
-    //         'due_date' => 'required',
-    //         'priority' => 'required',
-    //         'flagged' => 'required',
-    //     ]);
-  
-    //     Task::create($request->all());
    
-    //     return redirect()->route('task')
-    //                     ->with('success','Task created successfully.');
-    // }
     public function store(){
         $task = new Task();
         $task->description=request('description');
@@ -49,39 +33,61 @@ class TaskController extends Controller
 
         return redirect('/group/{{$group->id}}');
     }
-    public function update(Request $request, Task $task){
-        // $task = Task::find();
-        // $task->completed = request('completed');
-        // $task->save();
-        // return redirect('/');
-        $request->validate([
+    // public function update(Request $request, Task $task){
+    //     $task = Task::find();
+    //     // $task->completed = request('completed');
+    //     // $task->save();
+    //     // return redirect('/');
+    //     $request->validate([
             
-            'completed' => 'required',
+    //         'completed' => 'required',
             
-        ]);
+    //     ]);
        
-        $task->save();
-        // return redirect('/');
-        // $task->update($request->all());
+    //     $task->save();
+    //     // return redirect('/');
+    //     // $task->update($request->all());
   
-        return redirect()->route('task')
-                        ->with('success','Task updated successfully');
-    }
-    // public function destroy($id){
+    //     return redirect()->route('task')
+    //                     ->with('success','Task updated successfully');
+    // }
+    // // public function destroy($id){
+    // //     $task = Task::find($id);
+    // //     $task->delete();
+    // //     return redirect('/');
+    // // }
+    // public function destroy($id)
+    // {   
     //     $task = Task::find($id);
     //     $task->delete();
-    //     return redirect('/');
-    // }
-    public function destroy(Task $task)
-    {
-        $task->delete();
   
-        return redirect()->route('task')
-                        ->with('success','Task deleted successfully');
+    //     return redirect()->route('task')
+    //                     ->with('success','Task deleted successfully');
+    // }
+    public function update ($id) {
+        $task = Task::find($id);
+        $task->completed = request('completed');
+        $task->save();
+
+        return redirect('/group/{id}');
     }
+
+    public function destroy($id)
+    {
+        // if(auth()->id() != $task->group_id){
+        //     abort(403);}
+
+        // $task->delete();
+        $task = Task::find($id);
+        $task->delete();
+
+        return redirect('/group/{id}');
+   
+}
     public function show(Task $task){
         // $tasks = Task::latest()->where('group_id', $group->id)->get();
-            $tasks=Task::all();
+            // $tasks=Task::all();
+            Task::where('group_id',$group->id)->get();
             return view('task',compact('tasks'));
         // }
         // $task = Task::find();
