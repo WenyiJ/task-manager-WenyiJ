@@ -21,6 +21,7 @@
     </div>
 </div>
 @endsection --}}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -81,27 +82,31 @@
 <div class="row justify-content-center">
     <div class="col-md-8">
         <h2 class="d-flex justify-content-between display-4 my-3 text-success"><span></span><span>{{ \DB::table('tasks')->count()}}</span></h2>
+      
         <div class="card">
             <div class="card-header"><h2>Tasks</h2></div>
             <div class="card-body">
                 @foreach ($tasks as $task)
                 <ul class="list-group list-group-flush">
                                             <li class="list-group-item d-flex align-items-center justify-content-between">
-                        <form class="d-flex align-items-baseline" action="/task/{{$task->id}}" method="POST">
+                                            <form class="d-flex align-items-baseline" action="/task/{id}" method="POST">
+                                            <input id="group_id" name="completed" type="hidden" value="">
+                                                
                             @csrf
                             @method('put')
                             
                             <input type="hidden" name="completed" value="{{$task->completed ? 0 :1}}">
                         <button class="btn
                         @if ($task->completed)
-                        btn-success
+                        btn-checked
                     @else
-                        btn-light
+                        btn-unchecked
                     @endif
                         "><i class="fas fa-check"></i></button>
                         <p>{{$task->description}}</p>
                         </form>
-                        <form action="/group/{{$group->id}}" method="post">
+                        <form action="/task" method="POST">
+                           
                             @csrf
                             @method('delete')                                
                           
@@ -117,7 +122,7 @@
             <div class="card-body">
                 <form action="/task" method="POST">
                     @csrf                        
-                    {{-- <input type="hidden" name="group_id" value="5"> --}}
+                 
                     <div class="form-group">
                         <input type="text" class="form-control" name="description" placeholder="Task">
                     </div>

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Group;
-
+use App\Task;
 class GroupController extends Controller
 {
     public function index(){
@@ -58,6 +58,8 @@ public function store()
     public function destroy($id){
         $group = Group::find($id);
         $group->delete();
+        $task = Task::where('group_id', $id)->get();
+        $task->delete();
         return redirect('/');
     }
     public function show($id){

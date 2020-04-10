@@ -38,8 +38,8 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/group/{id}', 'TaskController@store');
     Route::get('/group/{id}', 'TaskController@show');
-    Route::put('/group/{id}/{task}',"TaskController@update");
-    Route::delete('/group/{id}/{task}',"TaskController@destroy");
+    Route::put('/group/{id}',"TaskController@update");
+    Route::delete('/group/{id}',"TaskController@destroy");
     // Route::get('/task', 'TaskController@index');
     });
 
