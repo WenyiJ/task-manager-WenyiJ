@@ -1,27 +1,3 @@
-{{-- @extends('layouts.app')
-
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">Dashboard</div>
-
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    You are logged in!
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-@endsection --}}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -81,55 +57,48 @@
         <div class="container">
 <div class="row justify-content-center">
     <div class="col-md-8">
-        <h2 class="d-flex justify-content-between display-4 my-3 text-success"><span></span><span>{{ count($uncompleted = array_filter($tasks->toArray(), function ($task) {
-
+        <h2 class="d-flex justify-content-between display-4 my-3 text-success"><span></span>
+            <span>
+            {{ count($uncompleted = array_filter($tasks->toArray(), function ($task) {
             return $task['completed'] === 0;
-  
-     })) }} </span></h2>
+            })) }} 
+            </span>
+        </h2>
       
         <div class="card">
             <div class="card-header"><h2>Tasks</h2></div>
             <div class="card-body">
                 @foreach ($tasks as $task)
                 <ul class="list-group list-group-flush">
-                                            <li class="list-group-item d-flex align-items-center justify-content-between">
-                                            <form class="d-flex align-items-baseline" action="/group/{{$group->id}}/tasks" method="POST">
-                                            <input id="group_id" name="completed" type="hidden" value="">
-                                                
+                    <li class="list-group-item d-flex align-items-center justify-content-between">
+                    <form class="d-flex align-items-baseline" action="/tasks/{{$task->id}}" method="POST">
+                        <input id="group_id" name="completed" type="hidden" value="">
                             @csrf
-                            {{-- @method('put') --}}
-                            
+                            @method('put')
                             <input type="hidden" name="completed" value="{{$task->completed ? 0 :1}}">
                             @if ($task->completed)
-                        <button class="btn btn-checked" style="color: green; 
-                        opacity: 1"><i class="fas fa-check"></i></button>
-                        <p style="text-decoration:line-through; color:grey">{{$task->description}}</p>
-                        
-                    @else
-                    <button class="btn btn-unchecked" style="opacity: 0.3;"><i class="fas fa-check"></i></button>
-                    <p >{{$task->description}}</p>
-                       
-                    @endif
-                       
-                        
-                       
-                        </form>
-                        <form action="/group/{id}" method="POST">
-                           
-                            @csrf
-                            @method('delete')                                
-                          
-                            <button class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
-                        </form>
+                                <button class="btn btn-checked" style="color: green; 
+                                opacity: 1"><i class="fas fa-check"></i></button>
+                                <p style="text-decoration:line-through; color:grey">{{$task->description}}</p>
+                             @else
+                                <button class="btn btn-unchecked" style="opacity: 0.3;"><i class="fas fa-check"></i></button>
+                                <p >{{$task->description}}</p>
+                            @endif
+                    </form>
+                    <form action="/tasks/{{$task->id}}" method="POST">
+                        @csrf
+                        @method('delete')                                
+                        <button class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+                    </form>
                     </li>
                 </ul>
-           @endforeach
+                @endforeach
             </div>
         </div>
         <div class="card mt-5">
             <div class="card-header"><h3>New Task</h3></div>
             <div class="card-body">
-                <form action="/task/{$id}" method="POST">
+                <form action="/group/{{$group['id']}}" method="POST">
                     @csrf                        
                  
                     <div class="form-group">

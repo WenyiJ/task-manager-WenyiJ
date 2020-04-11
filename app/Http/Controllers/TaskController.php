@@ -23,28 +23,46 @@ class TaskController extends Controller
         return view('task',compact('tasks'));
     }
    
-    public function store(Group $group){
-    //     $task = new Task();
-    //     $task->description=request('description');
-    //     $task->completed=request('completed');
-    //     $task->due_date=request('due_date');
-    //     $task->priority=request('priority');
-    //     $task->flagged=request('flagged');
+    public function store($id){
+        
+        // $group = Group::find($id);
+        // $task = new Task();
+        // $task->description=request('description');
+        // $task->completed=request('completed');
+        // $task->due_date=request('due_date');
+        // $task->priority=request('priority');
+        // $task->flagged=request('flagged');
+        
+        // $tasks = Task::where('group_id', $id)->get();
+       
+        // $task->save();
 
-    //     $tasks = Task::where('group_id', $id)->get();
-    //     $uncompleted = array_filter($tasks->toArray(), function ($task) {
+        // return redirect('/group/{id}');
+        $group = Group::find($id);
+        $task = new Task();
+        
+        // request()->validate([
+        //     'description' => 'required'
+        // ]);
+        
+        $values = request(['description']);
+        $values['group_id'] = $id;
+            
+        $task = Task::create($values);
+        // $task->description = request('description');
+        $task->save();
+        // $task = Task::create(request(['description']));
+        
+        // $task = Task::create([
+            // 'id' => $request->input('id'),
+            // 'description' => $request->input('description'),
+            // 'completed' => $request->input('completed'),
+            // 'due_date' => $request->input('due_date'),
+            // 'priority' => $request->input('priority'),
+            // 'flagged' => $request->input('flagged')
+        // ]);
 
-    //         return $task['completed'] === 0;
-  
-    //  });
-    //     $task->save();
-
-    //     return redirect('/group/{id}');
-    Task::create([
-        'group_id'=>$group->id,
-        'description'=>request('description')
-    ]);
-    return back();
+        return redirect('/group/{id}');
     }
 //     public function update ($id) {
 //         $task = Task::where('group_id', $id)->get();
@@ -79,10 +97,10 @@ public function update ($id) {
 public function destroy($id)
 {
 
-    
+    $group = Group::find($id);
     $task = Task::find($id);
     $task->delete();
-
+    // return back();
     return redirect('/group/{id}');
 }
     public function show($id){
