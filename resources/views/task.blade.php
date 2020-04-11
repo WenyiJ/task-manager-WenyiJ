@@ -81,7 +81,11 @@
         <div class="container">
 <div class="row justify-content-center">
     <div class="col-md-8">
-        <h2 class="d-flex justify-content-between display-4 my-3 text-success"><span></span><span>{{ \DB::table('tasks')->count()}}</span></h2>
+        <h2 class="d-flex justify-content-between display-4 my-3 text-success"><span></span><span>{{ count($uncompleted = array_filter($tasks->toArray(), function ($task) {
+
+            return $task['completed'] === 0;
+  
+     })) }} </span></h2>
       
         <div class="card">
             <div class="card-header"><h2>Tasks</h2></div>
@@ -89,23 +93,28 @@
                 @foreach ($tasks as $task)
                 <ul class="list-group list-group-flush">
                                             <li class="list-group-item d-flex align-items-center justify-content-between">
-                                            <form class="d-flex align-items-baseline" action="/task/{id}" method="POST">
+                                            <form class="d-flex align-items-baseline" action="/group/{{$group->id}}/tasks" method="POST">
                                             <input id="group_id" name="completed" type="hidden" value="">
                                                 
                             @csrf
-                            @method('put')
+                            {{-- @method('put') --}}
                             
                             <input type="hidden" name="completed" value="{{$task->completed ? 0 :1}}">
-                        <button class="btn
-                        @if ($task->completed)
-                        btn-checked
+                            @if ($task->completed)
+                        <button class="btn btn-checked" style="color: green; 
+                        opacity: 1"><i class="fas fa-check"></i></button>
+                        <p style="text-decoration:line-through; color:grey">{{$task->description}}</p>
+                        
                     @else
-                        btn-unchecked
+                    <button class="btn btn-unchecked" style="opacity: 0.3;"><i class="fas fa-check"></i></button>
+                    <p >{{$task->description}}</p>
+                       
                     @endif
-                        "><i class="fas fa-check"></i></button>
-                        <p>{{$task->description}}</p>
+                       
+                        
+                       
                         </form>
-                        <form action="/task" method="POST">
+                        <form action="/group/{id}" method="POST">
                            
                             @csrf
                             @method('delete')                                
@@ -120,7 +129,7 @@
         <div class="card mt-5">
             <div class="card-header"><h3>New Task</h3></div>
             <div class="card-body">
-                <form action="/task" method="POST">
+                <form action="/task/{$id}" method="POST">
                     @csrf                        
                  
                     <div class="form-group">
