@@ -98,7 +98,7 @@
         <div class="card mt-5">
             <div class="card-header"><h3>New Task</h3></div>
             <div class="card-body">
-                <form action="/group/{{$group['id']}}" method="POST">
+            <form action="/groups/{{$group->id}}/tasks" method="POST">
                     @csrf                        
                  
                     <div class="form-group">

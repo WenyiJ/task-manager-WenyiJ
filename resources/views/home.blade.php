@@ -94,7 +94,7 @@
                         <div class="card">
                         <div class="card-header d-flex justify-content-between">
                             <h2>Lists</h2>
-                        <h2>{{ \DB::table('groups')->count()}}</h2>
+                        <h2> {{ count($groups) }} </h2>
                         </div>
                         <div class="card-body">
                             
