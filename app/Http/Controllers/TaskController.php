@@ -37,66 +37,7 @@ public function store(Group $group){
 
     return back();
 }
-    // public function store($id){
-        
-    //     // $group = Group::find($id);
-    //     // $task = new Task();
-    //     // $task->description=request('description');
-    //     // $task->completed=request('completed');
-    //     // $task->due_date=request('due_date');
-    //     // $task->priority=request('priority');
-    //     // $task->flagged=request('flagged');
-        
-    //     // $tasks = Task::where('group_id', $id)->get();
-       
-    //     // $task->save();
-
-    //     // return redirect('/group/{id}');
-    //     $group = Group::find($id);
-    //     $task = new Task();
-        
-    //     // request()->validate([
-    //     //     'description' => 'required'
-    //     // ]);
-        
-    //     $values = request(['description']);
-    //     $values['group_id'] = $id;
-            
-    //     $task = Task::create($values);
-    //     // $task->description = request('description');
-    //     $task->save();
-    //     // $task = Task::create(request(['description']));
-        
-    //     // $task = Task::create([
-    //         // 'id' => $request->input('id'),
-    //         // 'description' => $request->input('description'),
-    //         // 'completed' => $request->input('completed'),
-    //         // 'due_date' => $request->input('due_date'),
-    //         // 'priority' => $request->input('priority'),
-    //         // 'flagged' => $request->input('flagged')
-    //     // ]);
-
-    //     return redirect('/group/{id}');
-    // }
-//     public function update ($id) {
-//         $task = Task::where('group_id', $id)->get();
-//         $group = Group::find($id);
-//         $task->completed = request('completed');
-//         $task->save();
-//         $group->save();
-//         // return redirect('/task');
-//         return redirect('/group/{id}');
-//     }
-
-//     public function destroy($id)
-//     {
-//         $task = Task::where('group_id', $id)->get();
-//         $group = Group::find($id);
-//         $task->delete();
-//         return redirect('/group/{id}');
-//         // return redirect('/task/{{$id}}');
-   
-// }
+  
 public function update (Task $task) {
 
         

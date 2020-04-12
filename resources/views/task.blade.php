@@ -66,7 +66,7 @@
         </h2>
       
         <div class="card">
-            <div class="card-header"><h2>Tasks</h2></div>
+            <div class="card-header"><h2 class="text-{{$group->color}}">{{$group->title}}</h2></div>
             <div class="card-body">
                 @foreach ($tasks as $task)
                 <ul class="list-group list-group-flush">
