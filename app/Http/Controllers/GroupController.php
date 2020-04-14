@@ -37,8 +37,8 @@ public function store()
     public function destroy($id){
         $group = Group::find($id);
         $group->delete();
-        $task = Task::where('group_id', $id)->get();
-        $task->delete();
+        // $task = Task::where('group_id', $id)->get();
+        // $task->delete();
         return redirect('/');
     }
     public function show($id){
